@@ -59,20 +59,20 @@ public class ApplicationContext<T> {
 			if (clazz.equals(method.getReturnType())) {
 				try {
 
-//					if (method.getReturnType().isAssignableFrom(EntityManager.class)) {
-//						EntityManagerHandler entityManagerHandler = new EntityManagerHandler(() -> {
-//							try {
-//								return (EntityManager) method.invoke(appConfiguration);
-//							} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-//								e.printStackTrace();
-//							}
-//							return null;
-//						});
-//
-//						return (T) Proxy.newProxyInstance(EntityManager.class.getClassLoader(),
-//								new Class[]{EntityManager.class}, entityManagerHandler);
-//
-//					}
+					if (method.getReturnType().isAssignableFrom(EntityManager.class)) {
+						EntityManagerHandler entityManagerHandler = new EntityManagerHandler(() -> {
+							try {
+								return (EntityManager) method.invoke(appConfiguration);
+							} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+								e.printStackTrace();
+							}
+							return null;
+						});
+
+						return (T) Proxy.newProxyInstance(EntityManager.class.getClassLoader(),
+								new Class[]{EntityManager.class}, entityManagerHandler);
+
+					}
 
 					return (T) method.invoke(appConfiguration);
 
